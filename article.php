@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
         </li>
 </ul>
-<a href="edit_article.php?id="<?= $article['id']; ?> >Edit</a>
+<a href="./edit_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
 
 <!-- Include footer -->
 <?php require './includes/footer.php'; ?>
