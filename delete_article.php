@@ -7,13 +7,10 @@ require './includes/article_functions.php';
 $conn = getDB();
 
 if (isset($_GET['id'])) {
-    $article = getArticle($conn, $_GET['id']);
+    $article = getArticle($conn, $_GET['id'], 'id');
 
     if ($article) {
         // Assign variable to be used in the form
-        $title = $article['title'];
-        $content = $article['content'];
-        $published_at = $article['published_at'];
         $id = $article['id'];
     } else {
         die("Article not found");
@@ -52,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php require './includes/header.php' ?>
 <h3 class="text-primary lead">Delete Article</h3>
-<p class="lead">Are you sure you want to Delete "<?= $article['title'] ?>" article</p>
+<p class="lead">Are you sure you want to Delete?</p>
 <form method="post" style=" display:inline!important;">
     <button class="btn btn-danger btn-sm">Delete</button>
 </form>

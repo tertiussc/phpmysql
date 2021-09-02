@@ -4,16 +4,16 @@
  * Get the article record based on the ID
  * 
  * @param object $conn Connection to the database
- * 
  * @param integer $id the article's ID
+ * @param string $columns Specify the required columns for the SQL statement
  * 
  * @return mixed An Associative array containing the article with that ID, or null if not found
  */
 
-function getArticle($conn, $id)
+function getArticle($conn, $id, $columns = '*')
 {
     // Create SQL statement
-    $sql = "SELECT * FROM article WHERE id = ?";
+    $sql = "SELECT $columns FROM article WHERE id = ?";
 
     // Prepare statement
     $stmt = mysqli_prepare($conn, $sql);
