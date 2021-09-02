@@ -30,7 +30,8 @@ if (isset($_GET['id'])) {
         </li>
 </ul>
 <a href="./edit_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
-<a href="./includes/delete_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-danger">Delete</a>
+<a href="./delete_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-danger">Delete</a>
+
 
 <!-- Include footer -->
 <?php require './includes/footer.php'; ?>
