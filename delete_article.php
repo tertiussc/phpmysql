@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // #5 Execute the statement and check that it worked
         if (mysqli_stmt_execute($stmt)) {
             // redirect after update
-            redirect("/phpmysql/index.php");
+            redirect("/index.php");
             // #6.2 If the execution of the statement fails show error
             echo mysqli_stmt_errno($stmt);
         }

@@ -94,7 +94,7 @@ function redirect($path){
     }
 
     // Redirect to URL
-    header("Location:" . $protocol . "://" . $_SERVER['HTTP_HOST'] . $path);
+    header("Location:" . $protocol . "://" . $_SERVER['HTTP_HOST'] . "/phpmysql" . $path);
 
     exit;
 }

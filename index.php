@@ -1,7 +1,10 @@
 <?php
 
-// Create a DB connection
+// import DB connection data
 require './includes/database.php';
+// Starte session
+session_start();
+// create DB connection and assign it to $conn
 $conn = getDB();
 
 // create SQL statement
@@ -21,6 +24,12 @@ if ($results === false) {
 }
 ?>
 <?php require './includes/header.php'; ?>
+
+<?php if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']) : ?>
+    <p>You are logged in. <a href="./logout.php">Log Out</a></p>
+<?php else : ?>
+    <p>You are logged out. <a href="./login.php">Log In</a></p>
+<?php endif ?>
 <main>
     <a class="btn btn-primary btn-sm mb-3" href="./new_article.php"><i class="fas fa-plus"></i> Add a new article</a>
     <ul class="list-unstyled ms-3">

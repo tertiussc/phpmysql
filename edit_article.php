@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // #5 Execute the statement and check that it worked
             if (mysqli_stmt_execute($stmt)) {
                 // redirect after update
-                redirect("/phpmysql/article.php?id=" . $id);
+                redirect("/article.php?id=" . $id);
                 
             } else {
                 // #6.2 If the execution of the statement fails show error

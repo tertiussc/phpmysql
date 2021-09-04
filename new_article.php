@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id = mysqli_insert_id($conn);
 
                 // execute Redirect function
-                redirect("/phpmysql/article.php?id=" . $id);
+                redirect("/article.php?id=" . $id);
 
             } else {
                 // #6.2 If the execution of the statement fails show error
