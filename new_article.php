@@ -2,6 +2,15 @@
 
 require './includes/database.php';
 require './includes/article_functions.php';
+require './includes/auth_functions.php';
+
+// Start the session
+session_start();
+
+// check to see if the user is logged in
+if (!isLoggedIn()) {
+    die("You must be login to add articles");
+}
 
 $title = '';
 $content = '';
