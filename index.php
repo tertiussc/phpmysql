@@ -20,12 +20,9 @@ $sql = "SELECT *
 $results = $conn->query($sql);
 
 // assign the returned results to a variable
-if ($results === false) {
-    var_dump($conn->errorInfo());
-} else {
+
     $articles = $results->fetchAll(PDO::FETCH_ASSOC);
     // var_dump($articles);
-}
 ?>
 <?php require './includes/header.php'; ?>
 
