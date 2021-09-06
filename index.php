@@ -1,13 +1,15 @@
 <?php
 
 // import DB connection data
-require './includes/database.php';
+require './classes/Database.php';
 // include auth functions
 require './includes/auth_functions.php';
 // Starte session
 session_start();
 // create DB connection and assign it to $conn
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnection();
+
 
 // create SQL statement
 $sql = "SELECT *
@@ -15,13 +17,13 @@ $sql = "SELECT *
         ORDER BY id";
 
 // run the query
-$results = mysqli_query($conn, $sql);
+$results = $conn->query($sql);
 
 // assign the returned results to a variable
 if ($results === false) {
-    echo mysqli_error($conn);
+    var_dump($conn->errorInfo());
 } else {
-    $articles = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
     // var_dump($articles);
 }
 ?>
