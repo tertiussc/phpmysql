@@ -13,29 +13,19 @@
 function getArticle($conn, $id, $columns = '*')
 {
     // Create SQL statement
-    $sql = "SELECT $columns FROM article WHERE id = ?";
+    $sql = "SELECT $columns FROM article WHERE id = :id";
 
     // Prepare statement
-    $stmt = mysqli_prepare($conn, $sql);
+    $stmt = $conn->prepare($sql);
+    // Bind the value
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-    // check to see if statement was prepared correctly 
-    if ($stmt === false) {
-        // If stmt prepare fails show error
-        echo mysqli_error($conn);
-    } else {
-        // If statement was prepared correctly then bind the data
-        mysqli_stmt_bind_param($stmt, "i", $id);
-
-        // Execute statement
-        if (mysqli_stmt_execute($stmt)) {
-            // save the result
-            $result = mysqli_stmt_get_result($stmt);
-            // return a associative array
-            return mysqli_fetch_array($result, MYSQLI_ASSOC);
-        }
+    // Execute statement
+    if ($stmt->execute()) {
+        // save the result
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
-
 
 /**
  * Validate the article fields
@@ -85,7 +75,8 @@ function validateArticle($title, $content, $published_at)
  * 
  * @return void 
  */
-function redirect($path){
+function redirect($path)
+{
     // check to see if protocal http OR https is being used
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
         $protocol = 'https';

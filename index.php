@@ -2,6 +2,8 @@
 
 // import DB connection data
 require './classes/Database.php';
+// get articles
+require './classes/Article.php';
 // include auth functions
 require './includes/auth_functions.php';
 // Starte session
@@ -10,19 +12,9 @@ session_start();
 $db = new Database();
 $conn = $db->getConnection();
 
+$articles = Article::getAll($conn);
 
-// create SQL statement
-$sql = "SELECT *
-        FROM article
-        ORDER BY id";
 
-// run the query
-$results = $conn->query($sql);
-
-// assign the returned results to a variable
-
-    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
-    // var_dump($articles);
 ?>
 <?php require './includes/header.php'; ?>
 
