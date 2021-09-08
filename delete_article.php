@@ -1,49 +1,33 @@
 <?php
 // Create a DB connection
-require './includes/database.php';
+require './classes/Database.php';
 // Get access to Article Functions
-require './includes/article_functions.php';
+require './classes/Article.php';
+// Re-direct
+require './includes/url.php';
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnection();
 
 if (isset($_GET['id'])) {
-    $article = getArticle($conn, $_GET['id'], 'id');
+    $article = Article::getArticleByID($conn, $_GET['id']);
 
-    if ($article) {
-        // Assign variable to be used in the form
-        $id = $article['id'];
-    } else {
-        die("Article not found");
+    if (!$article) {
+        die("Article not found: <a href=\"./index.php\" class=\"btn btn-primary\">Back to Home</a>");
     }
 } else {
 
-    die("Id not supplied, Article not found");
+    die("Id not supplied, Article not found: <a href=\"./index.php\" class=\"btn btn-primary\">Back to Home</a>");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Create SQL statement
-    $sql = "DELETE FROM article WHERE id = ?";
 
-    // #2 Prepare the statement
-    $stmt = mysqli_prepare($conn, $sql);
-
-    // #3 Check to see if statement was prepared successfully
-    if ($stmt === false) {
-        echo mysqli_error($conn);
-    } else {
-
-        // #4 insert the values into the prepared statement. The "sss" is the identify data type example s => string, i => Interger
-        mysqli_stmt_bind_param($stmt, "i", $id);
-
-        // #5 Execute the statement and check that it worked
-        if (mysqli_stmt_execute($stmt)) {
-            // redirect after update
-            redirect("/index.php");
-            // #6.2 If the execution of the statement fails show error
-            echo mysqli_stmt_errno($stmt);
-        }
+    if ($article->deleteArticle($conn)) {
+        // redirect after update
+        redirect("/index.php");
     }
 }
+
 ?>
 
 
@@ -53,6 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form method="post" style=" display:inline!important;">
     <button class="btn btn-danger btn-sm">Delete</button>
 </form>
-<a href="article.php?id=<?= $article['id']; ?>" class="btn btn-sm btn-primary">Cancel</a>
+<a href="article.php?id=<?= $article->id; ?>" class="btn btn-sm btn-primary">Cancel</a>
 
 <?php require './includes/footer.php' ?>

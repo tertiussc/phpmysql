@@ -1,7 +1,7 @@
 <!-- Show Errors -->
-<?php if (!empty($errors)) : ?>
+<?php if (!empty($article->errors)) : ?>
     <ul class="list-unstyled">
-        <?php foreach ($errors as $error) : ?>
+        <?php foreach ($article->errors as $error) : ?>
             <li class="text-danger callout-danger">*<?= $error; ?></li>
         <?php endforeach; ?>
     </ul>

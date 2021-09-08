@@ -1,10 +1,10 @@
 <?php
 // Create a DB connection
 require './classes/Database.php';
-// Get access to Article Functions
-require './includes/article_functions.php';
 // Load article class
 require './classes/Article.php';
+// Re-direct function
+require './includes/url.php';
 
 
 $db = new Database();
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
     }
 } else {
 
-    die("Id not supplied, Article not found");
+    die("Id not supplied, Article not found: <a href=\"./index.php\" class=\"btn btn-primary\">Back to Home</a>");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,17 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->title = $_POST['title'];
     $article->content = $_POST['content'];
     $article->published_at = $_POST['published_at'];
-    // Validate form fields
-    $errors = validateArticle($article->title, $article->content, $article->published_at);
 
-
-    if (empty($errors)) {
-        // Update the article
-        if ($article->updateArticle($conn)) {
-            # code...
-            redirect("/article.php?id=" . $article->id);
-            // redirect after update
-        }
+    // Update the article
+    if ($article->updateArticle($conn)) {
+        // redirect after update
+        redirect("/article.php?id=" . $article->id);
     }
 }
 ?>
