@@ -81,6 +81,42 @@ class Article
     }
 
     /**
+     * Add a new article
+     * 
+     * @param object $conn Connection to the database
+     * 
+     * @return boolean True is the insert was successful and False if unsuccessful 
+     */
+
+    public function createArticle($conn)
+    {
+        if ($this->validateFields()) {
+            // create SQL
+            $sql = "INSERT INTO article (title, content, published_at)
+                    VALUES (:title, :content, :published_at)";
+
+            // Prepare statement
+            $stmt = $conn->prepare($sql);
+
+            // Bind data to Statement
+            $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
+            $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+            // If date is empty bind to null, otherwise bind the given data
+            if ($this->published_at == '') {
+                $stmt->bindValue(':published_at', null, PDO::PARAM_NULL);
+            } else {
+                $stmt->bindValue(':published_at', $this->published_at, PDO::PARAM_STR);
+            }
+
+            // execute the statement
+            if ($stmt->execute()) {
+                $this->id = $conn->lastInsertId();
+                return true;
+            } 
+        }
+    }
+
+    /**
      * Update an Article with new values supplied in the form 
      * 
      * @param object $conn Connection to the database
