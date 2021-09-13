@@ -1,14 +1,10 @@
 <?php
-// Create a DB connection
-require './classes/Database.php';
-// Load article class
-require './classes/Article.php';
-// Re-direct function
-require './classes/Url.php';
+// Classes Autoloader and session start
+require 'includes/init.php';
 
 
-$db = new Database();
-$conn = $db->getConnection();
+// create a database connection
+$conn = require './includes/db.php';
 
 // Button text
 $buttontext = '<i class="fas fa-save"></i> Update Article';
@@ -36,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Update the article
     if ($article->updateArticle($conn)) {
         // redirect after update
-        Url::redirect("/article.php?id={$article->id}");
+        Url::redirect("article.php?id={$article->id}");
     }
 }
 ?>

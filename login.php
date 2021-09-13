@@ -4,14 +4,9 @@
  * Login Script
  * 
  */
-require './classes/Database.php';
-require './classes/User.php';
-require './classes/Url.php';
 
-session_start();
-// Create a DB connection
-$db = new Database();
-$conn = $db->getConnection();
+// Classes Autoloader and session start
+require 'includes/init.php';
 
 // Initialize values
 $username = '';
@@ -19,14 +14,14 @@ $password = '';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // create a database connection
+    $conn = require './includes/db.php';
 
     if (User::authenticate($conn, $_POST['username'], $_POST['password'])) {
-        // prevent fixation attacks
-        session_regenerate_id(true);
-        // setlogin status
-        $_SESSION['is_logged_in'] = true;
+        // Login in with session
+        Auth::login();
         // redirect after login
-        Url::redirect("/index.php");
+        Url::redirect("index.php");
     } else {
         // set error on incorrect login
         $error = "Incorrect username or password!";

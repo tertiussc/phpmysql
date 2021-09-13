@@ -1,16 +1,16 @@
 <?php
 
 // Classes Autoloader and session start
-require 'includes/init.php';
+require '../includes/init.php';
 
 // create a database connection
-$conn = require './includes/db.php';
+$conn = require '../includes/db.php';
 
 $articles = Article::getAll($conn);
 
 
 ?>
-<?php require './includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <?php if (Auth::isLoggedIn()) : ?>
     <p class="callout-info">You are logged in. <a href="./logout.php">Log Out</a></p>
@@ -35,4 +35,4 @@ $articles = Article::getAll($conn);
 </main>
 <div class="add-space"></div>
 
-<?php require './includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>

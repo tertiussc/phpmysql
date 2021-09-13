@@ -1,13 +1,9 @@
 <?php
-// Create a DB connection
-require './classes/Database.php';
-// Get access to Article Functions
-require './classes/Article.php';
-// Re-direct
-require './classes/Url.php';
+// Classes Autoloader and session start
+require 'includes/init.php';
 
-$db = new Database();
-$conn = $db->getConnection();
+// create a database connection
+$conn = require './includes/db.php';
 
 if (isset($_GET['id'])) {
     $article = Article::getArticleByID($conn, $_GET['id']);
@@ -24,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($article->deleteArticle($conn)) {
         // redirect after update
-        Url::redirect("/index.php");
+        Url::redirect("index.php");
     }
 }
 
