@@ -2,21 +2,22 @@
 
 require './classes/Database.php';
 require './classes/Article.php';
-require './includes/url.php';
-require './includes/auth_functions.php';
+require './classes/Auth.php';
+require './classes/Url.php';
 
 // Start the session
 session_start();
+// Customize the button text
+$buttontext = '<i class="fas fa-plus"></i> Add Article';
 
 // check to see if the user is logged in
-if (!isLoggedIn()) {
+if (!Auth::isLoggedIn()) {
     die("You must be login to add articles");
 }
 
 // Create article object
 $article = new Article();
 
-$buttontext = '<i class="fas fa-plus"></i> Add Article';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Create the connection
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->published_at = $_POST['published_at'];
 
     if ($article->createArticle($conn)) {
-        redirect("/article.php?id={$article->id}");
+        Url::redirect("/article.php?id={$article->id}");
     }
 }
 ?>

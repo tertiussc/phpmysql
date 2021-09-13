@@ -85,7 +85,7 @@ class Article
      * 
      * @param object $conn Connection to the database
      * 
-     * @return boolean True is the insert was successful and False if unsuccessful 
+     * @return boolean True if the insert was successful and False if unsuccessful 
      */
 
     public function createArticle($conn)

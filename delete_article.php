@@ -4,7 +4,7 @@ require './classes/Database.php';
 // Get access to Article Functions
 require './classes/Article.php';
 // Re-direct
-require './includes/url.php';
+require './classes/Url.php';
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($article->deleteArticle($conn)) {
         // redirect after update
-        redirect("/index.php");
+        Url::redirect("/index.php");
     }
 }
 

@@ -4,7 +4,7 @@ require './classes/Database.php';
 // Load article class
 require './classes/Article.php';
 // Re-direct function
-require './includes/url.php';
+require './classes/Url.php';
 
 
 $db = new Database();
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Update the article
     if ($article->updateArticle($conn)) {
         // redirect after update
-        redirect("/article.php?id=" . $article->id);
+        Url::redirect("/article.php?id={$article->id}");
     }
 }
 ?>

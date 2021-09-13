@@ -4,8 +4,10 @@
  * Log the user out
  * 
  */
-require './includes/article_functions.php';
-// Start current session
+
+ require './classes/Url.php';
+
+ // Start current session
 session_start();
 // Completely remove all session info and cookie information
 $_SESSION = array();
@@ -25,4 +27,4 @@ if (ini_get("session.use_cookies")) {
 // Destroy current session
 session_destroy();
 // Redirect after logout
-redirect('/');
+Url::redirect("/index.php");

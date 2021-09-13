@@ -5,7 +5,9 @@ require './classes/Database.php';
 // get articles
 require './classes/Article.php';
 // include auth functions
-require './includes/auth_functions.php';
+require './classes/User.php';
+require './classes/Auth.php';
+
 // Starte session
 session_start();
 // create DB connection and assign it to $conn
@@ -18,11 +20,11 @@ $articles = Article::getAll($conn);
 ?>
 <?php require './includes/header.php'; ?>
 
-<?php if (isLoggedIn()) : ?>
+<?php if (Auth::isLoggedIn()) : ?>
     <p>You are logged in. <a href="./logout.php">Log Out</a></p>
     <a class="btn btn-primary btn-sm mb-3" href="./new_article.php"><i class="fas fa-plus"></i> Add a new article</a>
 <?php else : ?>
-    <p>You are logged out. <a href="./login.php">Log In</a></p>
+    <p>You are logged out. <a href="login.php">Log In</a></p>
 <?php endif ?>
 <main>
     <ul class="list-unstyled ms-3">
