@@ -9,6 +9,8 @@ $buttontext = '<i class="fas fa-plus"></i> Add Article';
 // Require a user t be logged in
 Auth::requireLogin();
 
+// Variable needed to indicate active link on the Navbar
+$thisPage = 'New Article';
 
 // Create article object
 $article = new Article();

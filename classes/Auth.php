@@ -24,7 +24,7 @@ class Auth
     public static function requireLogin()
     {
         if (! static::isLoggedIn()) {
-            die("you must be logged in.");
+            die("You must be logged in");
         }
     }
 
