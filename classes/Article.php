@@ -43,12 +43,48 @@ class Article
      */
     public static function getAll($conn)
     {
+        // Create thew SQL statement
         $sql = "SELECT *
                 FROM article
                 ORDER BY id;";
+
+        // Run the sql statement
         $results = $conn->query($sql);
 
+        // Convert results into associative array and return it
         return $results->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get a page of articles (pagination)
+     * 
+     * @param object $conn Connection to the database
+     * @param integer $limit Number of records to return
+     * @param integer $offset Number of records to skip
+     * 
+     * @return array An associative array articles per page
+     */
+    public static function getPage($conn, $limit, $offset)
+    {
+        // create the SQL 
+        $sql = "SELECT * 
+                FROM article
+                ORDER BY id
+                LIMIT :limit
+                OFFSET :offset";
+
+        // prepare statement
+        $stmt = $conn->prepare($sql);
+
+        // Bind the values
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        // Execute Statement 
+        $stmt->execute();
+
+        // Return an Associative array of the records
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -112,7 +148,7 @@ class Article
             if ($stmt->execute()) {
                 $this->id = $conn->lastInsertId();
                 return true;
-            } 
+            }
         }
     }
 
@@ -205,5 +241,17 @@ class Article
             }
         }
         return empty($this->errors);
+    }
+
+    /**
+     * Get the total number of records in the table
+     * 
+     * @param object $conn Connection to the database
+     * 
+     * @return integer The total number of records
+     */
+    public static function getTotal($conn)
+    {
+        return $conn->query('SELECT COUNT(*) FROM article')->fetchColumn();
     }
 }

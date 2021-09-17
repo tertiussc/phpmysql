@@ -6,10 +6,13 @@ require 'includes/init.php';
 // create a database connection
 $conn = require './includes/db.php';
 
-$articles = Article::getAll($conn);
+// Get the page value
+$paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn));
+
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
 $thisPage = 'Home';
-
+$currentPage = $_GET['page'];
 
 ?>
 <?php require './includes/header.php'; ?>
@@ -28,6 +31,10 @@ $thisPage = 'Home';
             </li>
         <?php endforeach ?>
     </ul>
+
+    <!-- Pagination -->
+    <?php require './includes/pagination.php'; ?>
+
 </main>
 <div class="add-space"></div>
 
