@@ -45,6 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Adding page content -->
 <h3 class="text-primary lead">Edit article</h3>
 <!-- get the article form -->
-<?php require '../includes/article_form.php' ?>
+<?php require './includes/article_form.php' ?>
 <!-- get the footer -->
 <?php require '../includes/footer.php'; ?>

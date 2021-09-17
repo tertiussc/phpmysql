@@ -14,9 +14,6 @@ $thisPage = 'Home';
 ?>
 <?php require './includes/header.php'; ?>
 
-<?php if (Auth::isLoggedIn()) : ?>
-    <a class="btn btn-primary btn-sm mb-3" href="./new_article.php"><i class="fas fa-plus"></i> Add a new article</a>
-<?php endif ?>
 <main>
     <ul class="list-unstyled ms-3">
         <?php if (empty($articles)) : ?>

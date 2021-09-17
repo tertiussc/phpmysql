@@ -16,7 +16,7 @@ $thisPage = 'Admin';
 <?php require '../includes/header.php'; ?>
 <main>
     <h2 class="display-6">Article Admin Portal</h2>
-    <a class="btn btn-primary btn-sm mb-3" href="../new_article.php"><i class="fas fa-plus"></i> Add a new article</a>
+    <a class="btn btn-primary btn-sm mb-3" href="./new_article.php"><i class="fas fa-plus"></i> Add a new article</a>
     <?php if (empty($articles)) : ?>
         <p class="lead">No articles found</p>
     <?php endif ?>
