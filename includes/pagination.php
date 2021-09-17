@@ -6,6 +6,7 @@
 // get base uri
 $basePath = strtok($_SERVER["REQUEST_URI"], '?');
 
+
 ?>
 
 <nav aria-label="Page navigation">

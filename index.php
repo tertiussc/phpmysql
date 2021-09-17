@@ -7,12 +7,13 @@ require 'includes/init.php';
 $conn = require './includes/db.php';
 
 // Get the page value
-$paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn));
+$postsPerPage = 4;
+$paginator = new Paginator($_GET['page'] ?? 1, $postsPerPage, Article::getTotal($conn));
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
 $thisPage = 'Home';
-$currentPage = $_GET['page'];
+$currentPage = $_GET['page'] ?? 1;
 
 ?>
 <?php require './includes/header.php'; ?>

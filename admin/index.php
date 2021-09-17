@@ -7,14 +7,17 @@ Auth::requireLogin();
 // create a database connection
 $conn = require '../includes/db.php';
 
+
+
 // Get the page value
-$paginator = new Paginator($_GET['page'] ?? 1, 6, Article::getTotal($conn));
+$postsPerPage = 6;
+$paginator = new Paginator($_GET['page'] ?? 1, $postsPerPage, Article::getTotal($conn));
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
 // used to set the link as active in the Navbar
 $thisPage = 'Admin';
-$currentPage = $_GET['page'];
+$currentPage = $_GET['page'] ?? 1;
 
 ?>
 <?php require '../includes/header.php'; ?>

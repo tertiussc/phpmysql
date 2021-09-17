@@ -18,24 +18,24 @@
 
 <body class="bg-light">
     <div class="container">
-        <h1 class="display-5"><a class="text-decoration-none" href="/phpmysql/index.php?page=1">My Site - Connected to a DB</a></i></h1>
+        <h1 class="display-5"><a class="text-decoration-none" href="/phpmysql/">My Site - Connected to a DB</a></i></h1>
         <hr class="border border-primary border-2 mb-3">
         <!-- Use results in HTML mixin -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/phpmysql/index?page=1">Awesome Site</a>
+                <a class="navbar-brand" href="/phpmysql/">Awesome Site</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link <?= ($thisPage == 'Home') ? 'active' : ''; ?>" aria-current="page" href="/phpmysql/index.php?page=1">Home</a>
+                            <a class="nav-link <?= ($thisPage == 'Home') ? 'active' : ''; ?>" aria-current="page" href="/phpmysql/">Home</a>
                         </li>
                         <!-- Login Conditional links start -->
                         <?php if (Auth::isLoggedIn()) : ?>
                             <li class="nav-item">
-                                <a class="nav-link <?= ($thisPage == 'Admin') ? 'active' : ''; ?>" href="/phpmysql/admin/index.php?page=1">Admin</a>
+                                <a class="nav-link <?= ($thisPage == 'Admin') ? 'active' : ''; ?>" href="/phpmysql/admin/">Admin</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/phpmysql/logout.php">Log Out</a>
