@@ -1,0 +1,2 @@
+# If boolean use php_flag if value use php_value
+php_value upload_max_filesize 5M

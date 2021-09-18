@@ -32,6 +32,7 @@ if (isset($_GET['id'])) {
         </li>
         <?php if (Auth::isLoggedIn()) : ?>
             <a href="edit_article.php?id=<?php echo $article->id; ?>" class="btn btn-sm btn-primary">Edit</a>
+            <a href="edit_article_image.php?id=<?php echo $article->id; ?>" class="btn btn-sm btn-warning">Edit Image</a>
             <a href="delete_article.php?id=<?php echo $article->id; ?>" class="btn btn-sm btn-danger">Delete</a>
         <?php else : ?>
             <p class="callout-danger">You must be logged in to Edit or Delete. <a href="login.php">Login</a></p>
