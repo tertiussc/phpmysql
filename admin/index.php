@@ -32,6 +32,8 @@ $currentPage = $_GET['page'] ?? 1;
             <th class="col">Article ID</th>
             <th class="col">Article Title</th>
             <th class="col">Article Contents</th>
+            <th class="col">Image File</th>
+            <!-- <th class="col">Select</th> -->
             <!-- <th class="col">Select</th> -->
         </thead>
         <tbody>
@@ -40,6 +42,7 @@ $currentPage = $_GET['page'] ?? 1;
                     <td><?= $article['id']; ?></td>
                     <td><a href="./article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></td>
                     <td><?= $article['content']; ?></td>
+                    <td><?= $article['image_file']; ?></td>
                     <!-- <td class="text-center">
                         <input class="form-check-input" type="checkbox" name="<?= $article['id']; ?>" id="<?= $article['id']; ?>">
                         <label for="<?= $article['id']; ?>" class="visually-hidden"><?= $article['id']; ?></label>
@@ -51,6 +54,4 @@ $currentPage = $_GET['page'] ?? 1;
     <!-- Pagination -->
     <?php require '../includes/pagination.php'; ?>
 </main>
-<div class="add-space"></div>
-
 <?php require '../includes/footer.php'; ?>

@@ -11,6 +11,7 @@ require 'includes/init.php';
 // Initialize values
 $username = '';
 $password = '';
+$thisPage = '';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

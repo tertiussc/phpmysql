@@ -12,6 +12,10 @@ $conn = require '../includes/db.php';
 // Button text
 $buttontext = '<i class="fas fa-save"></i> Update Article';
 
+$thisPage = 'Article Image';
+
+$uploadStatus = '';
+
 
 if (isset($_GET['id'])) {
 
@@ -26,63 +30,10 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Process the form
-    var_dump($_FILES['file']);
-
-    // Handle errors
-    try {
-
-        if (empty($_FILES)) {
-            throw new Exception("Invalid upload");
-        }
-
-        switch ($_FILES['file']['error']) {
-            case UPLOAD_ERR_OK:
-                break;
-            case UPLOAD_ERR_NO_FILE:
-                throw new Exception('No file uploaded');
-                break;
-            case UPLOAD_ERR_INI_SIZE:
-                throw new Exception("Upload file too big, max size 3mb");
-
-            default:
-                throw new Exception('An error has occurred');
-                break;
-        }
-
-        if ($_FILES['file']['size'] > 5000000) {
-            throw new Exception("File too big, max size is 1mb", 1);
-        }
-
-        // Set allowed upload types (MIME types)
-        $mime_types = ['image/gif', 'image/png', 'image/jpeg'];
-
-        // Check validate the file type (not just the extension)
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
-
-        if (!in_array($mime_type, $mime_types)) {
-            throw new Exception("Invalid file type, only *.png or *.jpeg or *.git is allowed", 1);
-        }
-
-        // Check filename and replace unwanted characters with underscores
-        $pathinfo = pathinfo($_FILES['file']['name']);
-        $base = $pathinfo['filename'];
-        $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
-        $filename = $base . "." . $pathinfo['extension'];
-        // upload the file
-        $destination = '../uploads/' . $filename;
-
-        
-        if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-            echo "file uploaded";
-        } else {
-            throw new Exception("Unable to move uploaded file");
-        }
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    // Upload file using the class
+    ManageImage::uploadImage($conn, $article);
 }
+
 
 ?>
 
@@ -93,9 +44,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h3 class="text-primary lead">Edit article image</h3>
 
 <!-- upload image form -->
+<?php if ($article->image_file) : ?>
+    <p class="h4"><a class="text-decoration-none" href="/phpmysql/uploads/<?= $article->image_file; ?>"><img class="img-thumbnail img-height" src="/phpmysql/uploads/<?= $article->image_file; ?>" alt="<?= $article->image_file; ?>"></a></p>
+    <a href="delete_article_image.php?id=<?= $article->id; ?>" class="btn btn-danger col-4">Delete</a>
+    <a href="/phpmysql/admin/article.php?id=<?php echo $article->id; ?>" class="btn btn-secondary col-4">Cancel</a>
+
+<?php endif; ?>
+<?php if (isset($error)) : ?>
+    <p class="callout-danger mt-3"><?= $error; ?></p>
+<?php endif; ?>
 <form method="POST" enctype="multipart/form-data">
     <div class="mb-3">
-        <label class="form-label" for="file">Image File</label>
+        <label class="form-label mt-2" for="file">Image File</label>
         <input class="form-control" type="file" name="file" id="file">
     </div>
     <div class="mb-3 d-grid">

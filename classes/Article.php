@@ -29,6 +29,11 @@ class Article
     public $published_at;
 
     /**
+     * @var string
+     */
+    public $image_file;
+
+    /**
      * Validation errors array
      * @var array 
      */
@@ -253,5 +258,31 @@ class Article
     public static function getTotal($conn)
     {
         return $conn->query('SELECT COUNT(*) FROM article')->fetchColumn();
+    }
+
+    /**
+     * Set an image file to the article table
+     * 
+     * @param object $conn Connection to the database
+     * @param string $filename The image filename
+     * 
+     * @return boolean True is filename was added false otherwise
+     */
+    public function setImageFile($conn, $filename)
+    {
+        // create SQL
+        $sql = "UPDATE article
+                SET image_file = :image_file
+                WHERE id = :id";
+
+        // Prepare the statement passing in the SQL statement to be prepared
+        $stmt = $conn->prepare($sql);
+
+        // Bind the data
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+
+        // Return the executed statement
+        return $stmt->execute();
     }
 }
