@@ -1,4 +1,6 @@
 <?php
+echo '<h3 class="">Temporary PHP Outputs</h3>';
+
 // Classes Autoloader and session start
 require '../includes/init.php';
 
@@ -25,6 +27,12 @@ if (isset($_GET['id'])) {
     die("Id not supplied, Article not found: <a href=\"../index.php\" class=\"btn btn-primary\">Back to Home</a>");
 }
 
+// get selected article's categories
+$category_ids = array_column($article->getArticleCategoriesOnly($conn), 'id');
+
+// get all catagories in the database
+$categories = Category::getCategories($conn);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Assign the new values from the form to the object
@@ -38,6 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Url::redirect("admin/article.php?id={$article->id}");
     }
 }
+
+// A line to split temporary php output code above HTML page
+echo "<hr>";
 ?>
 
 <!-- Add Page header -->

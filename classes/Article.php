@@ -122,6 +122,61 @@ class Article
     }
 
     /**
+     * Get the article record based on articleID along with the ssociated catgories, if any
+     * 
+     * @param object $conn Connection to the database
+     * @param integer $id Selected article ID
+     * 
+     * @return array The article data with categories
+     */
+    public static function getArticleWithCategories($conn, $id)
+    {
+        // create many to many SQL statement 
+        $sql = "SELECT article.*, category.name AS category_name
+        FROM article
+        LEFT JOIN article_category
+        ON article.id = article_category.article_id
+        LEFT JOIN category
+        ON article_category.category_id = category.id
+        WHERE article.id = :id";
+
+        // Prepare the statement
+        $stmt = $conn->prepare($sql);
+
+        // Bind the data
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        // execute the $stmt
+        $stmt->execute();
+
+        // return an associative array because the redult could be more then 1 record
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the article's categories only
+     * 
+     * @param object $conn Connection to the database
+     * 
+     * @return array The categories of an article
+     */
+    public function getArticleCategoriesOnly($conn)
+    {
+        $sql = "SELECT category.*
+        FROM category
+        JOIN article_category
+        ON category.id = article_category.category_id
+        WHERE article_id = :id";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Add a new article
      * 
      * @param object $conn Connection to the database

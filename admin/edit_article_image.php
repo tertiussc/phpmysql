@@ -9,14 +9,11 @@ Auth::requireLogin();
 // create a database connection
 $conn = require '../includes/db.php';
 
-// Button text
+// Customizations
 $buttontext = '<i class="fas fa-save"></i> Update Article';
-
 $thisPage = 'Article Image';
 
-$uploadStatus = '';
-
-
+// Get the article
 if (isset($_GET['id'])) {
 
     $article = Article::getArticleByID($conn, $_GET['id']);
@@ -30,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Upload file using the class
+    // Upload file when the form is submitted
     ManageImage::uploadImage($conn, $article);
 }
 
