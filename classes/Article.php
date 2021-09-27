@@ -72,11 +72,16 @@ class Article
     public static function getPage($conn, $limit, $offset)
     {
         // create the SQL 
-        $sql = "SELECT * 
+        $sql = "SELECT a.*, category.name AS category_name
+                FROM (SELECT * 
                 FROM article
                 ORDER BY id
                 LIMIT :limit
-                OFFSET :offset";
+                OFFSET :offset) as a
+                LEFT JOIN article_category
+                ON a.id = article_category.article_id
+                LEFT JOIN category
+                ON article_category.category_id = category.id";
 
         // prepare statement
         $stmt = $conn->prepare($sql);
@@ -88,8 +93,31 @@ class Article
         // Execute Statement 
         $stmt->execute();
 
-        // Return an Associative array of the records
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Assign the results to a variable 
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Create an array to hold all the data
+        $articles = [];
+
+        // Initialize previous_id
+        $previous_id = null;
+        // loop through the data
+        foreach ($result as $row) {
+            $article_id = $row['id'];
+
+            if ($article_id != $previous_id) {
+
+                $row['category_names'] = [];
+
+                $articles[$article_id] = $row;
+            }
+
+            $articles[$article_id]['category_names'][] = $row['category_name'];
+
+            $previous_id = $article_id;
+
+        }
+
+        return $articles;
     }
 
     /**
