@@ -269,6 +269,67 @@ class Article
     }
 
     /**
+     * Set the categories on an article
+     * 
+     * @param object $conn, Connection to the database
+     * @param array $category_ids Array of category ID to be added to the table
+     * 
+     * @return void 
+     */
+    public function setCategories($conn, $category_ids)
+    {
+
+        if ($category_ids) {
+            $sql = "INSERT IGNORE INTO article_category (article_id, category_id)
+            VALUES ";
+
+            // create a array for the values to be inserted
+            $values = [];
+
+            foreach ($category_ids as $category_id) {
+                $values[] = "({$this->id}, ?)";
+            }
+
+            // Update (append) the sql statement
+            $sql .= implode(", ", $values);
+
+
+            // Prepare the statement
+            $stmt = $conn->prepare($sql);
+
+            // process the array of IDs and bind the value/s
+            foreach ($category_ids as $i => $category_id) {
+                $stmt->bindValue($i + 1, $category_id, PDO::PARAM_INT);
+            }
+            // Execute the statement with the multiple categories inserted into the sql statement 
+            $stmt->execute();
+        }
+
+        // Delete unselected categories if the existed
+        // create the sql statement (used just like this would delete all categories for an article) see where statement gets appended 
+        $sql = "DELETE FROM article_category
+                WHERE article_id = {$this->id}";
+
+        // create placeholders for the number of category IDs and then append the SQL statement
+        if ($category_ids) {
+            $placeholders = array_fill(0, count($category_ids), '?');
+
+            $sql .= " AND category_id NOT IN (" . implode(", ", $placeholders) . ")";
+        }
+
+        // Prepare the statement
+        $stmt = $conn->prepare($sql);
+
+        // bind the data for each category in an array
+        foreach ($category_ids as $i => $category_id) {
+            $stmt->bindValue($i + 1, $category_id, PDO::PARAM_INT );
+        }
+
+        // execute the statement
+        $stmt->execute();
+    }
+
+    /**
      * Validate the article fields, putting any validation errors in the $errors array
      * 
      * @return boolean True if the current properties are valid and false if errors are found

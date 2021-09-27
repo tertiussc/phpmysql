@@ -15,17 +15,31 @@ $thisPage = 'New Article';
 // Create article object
 $article = new Article();
 
+// Initialize and empty $category_ids array
+$category_ids = [];
+
+// create a database connection
+$conn = require '../includes/db.php';
+
+// get all catagories in the database
+$categories = Category::getCategories($conn);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // create a database connection
-    $conn = require '../includes/db.php';
 
     // Assign Values to input on first submission so that if there is an error the form will be populated with the info the user surplied
     $article->title = $_POST['title'];
     $article->content = $_POST['content'];
     $article->published_at = $_POST['published_at'];
 
+    $category_ids = $_POST['category'] ?? [];
+
+
     if ($article->createArticle($conn)) {
+        // Set the categories
+        $article->setCategories($conn, $category_ids);
+
+        // Redirect after successful creation
         Url::redirect("admin/article.php?id={$article->id}");
     }
 }

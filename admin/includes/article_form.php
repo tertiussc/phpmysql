@@ -7,11 +7,6 @@
     </ul>
 <?php endif; ?>
 
-<?php if (!empty($id)) : ?>
-    <p class="callout-info"><small>
-            Your post with ID: <?= $id; ?> has been added.
-        </small></p>
-<?php endif; ?>
 
 <!-- The form -->
 <form class="border rounded bg-white py-5 px-3 custom-form-shaddow" method="post" action="">
@@ -28,11 +23,12 @@
         <label class="form-label" for="published_at">Publication data and time</label>
         <input class="form-control" type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?>" placeholder="YYYY-MM-DD HH:MM:SS">
     </div>
+
     <fieldset class="border rounded px-3 mb-2">
         <legend class="h6">Categories</legend>
         <?php foreach ($categories as $category) : ?>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="category[]" value="<?= $category['id'] ?>" id="category<?= $category['id'] ?>" <?=in_array($category['id'], $category_ids) ? 'checked' : ''; ?>>
+                <input class="form-check-input" type="checkbox" name="category[]" value="<?= $category['id'] ?>" id="category<?= $category['id'] ?>" <?= in_array($category['id'], $category_ids) ? 'checked' : ''; ?>>
                 <label class="form-check-label" for="category<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></label>
             </div>
         <?php endforeach ?>

@@ -40,8 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->content = $_POST['content'];
     $article->published_at = $_POST['published_at'];
 
+    $category_ids = $_POST['category'] ?? [];
+
     // Update the article
     if ($article->updateArticle($conn)) {
+
+        // update article categories
+        $article->setCategories($conn, $category_ids);
+        
         // redirect after update
         Url::redirect("admin/article.php?id={$article->id}");
     }
