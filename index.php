@@ -26,7 +26,17 @@ $currentPage = $_GET['page'] ?? 1;
         <?php foreach ($articles as $article) : ?>
             <li>
                 <article>
-                    <h2><a class="text-decoration-none" href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article["title"]); ?></a></h2>
+                    <h2><a class="text-decoration-none" href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article["title"]); ?>
+
+                            <!-- Add category names from the array -->
+                            <?php if ($article['category_names']) : ?>
+                                <small class="fw-light">
+                                    <?php foreach ($article['category_names'] as $i => $name) {
+                                        echo " " . htmlspecialchars($name);
+                                    } ?>
+                                </small>
+                            <?php endif; ?>
+                        </a></h2>
                     <p><?php echo htmlspecialchars($article["content"]); ?></p>
                 </article>
             </li>
