@@ -31,8 +31,9 @@ $currentPage = $_GET['page'] ?? 1;
         <thead>
             <th class="col">Article ID</th>
             <th class="col">Article Title</th>
-            <th class="col">Article Contents</th>
+            <!-- <th class="col">Article Contents</th> -->
             <th class="col">Image File</th>
+            <th class="col">Published Date</th>
             <!-- <th class="col">Select</th> -->
             <!-- <th class="col">Select</th> -->
         </thead>
@@ -41,8 +42,9 @@ $currentPage = $_GET['page'] ?? 1;
                 <tr>
                     <td><?= $article['id']; ?></td>
                     <td><a href="./article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></td>
-                    <td><?= $article['content']; ?></td>
+                    <!-- <td><?= $article['content']; ?></td> -->
                     <td><?= $article['image_file']; ?></td>
+                    <td><?= ($article['published_at']) ? $article['published_at'] : 'Unpublished'; ?></td>
                     <!-- <td class="text-center">
                         <input class="form-check-input" type="checkbox" name="<?= $article['id']; ?>" id="<?= $article['id']; ?>">
                         <label for="<?= $article['id']; ?>" class="visually-hidden"><?= $article['id']; ?></label>
