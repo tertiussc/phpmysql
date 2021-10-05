@@ -9,7 +9,7 @@ $thisPage = 'Article';
 
 // Check if article ID is set (link is pressed)
 if (isset($_GET['id'])) {
-    $article = Article::getArticleWithCategories($conn, $_GET['id']);
+    $article = Article::getArticleWithCategories($conn, $_GET['id'], true);
 } else {
     $article = null;
 }

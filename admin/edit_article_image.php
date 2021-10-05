@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- upload image form -->
 <?php if ($article->image_file) : ?>
     <p class="h4"><a class="text-decoration-none" href="/phpmysql/uploads/<?= $article->image_file; ?>"><img class="img-thumbnail img-height" src="/phpmysql/uploads/<?= $article->image_file; ?>" alt="<?= $article->image_file; ?>"></a></p>
-    <a href="delete_article_image.php?id=<?= $article->id; ?>" class="btn btn-danger col-4">Delete</a>
-    <a href="/phpmysql/admin/article.php?id=<?php echo $article->id; ?>" class="btn btn-secondary col-4">Cancel</a>
+    <a href="delete_article_image.php?id=<?= $article->id; ?>" class="btn btn-danger col-4 delete-article-btn">Delete</a>
+    <a href="/phpmysql/admin/article.php?id=<?php echo $article->id; ?>" class="btn btn-secondary col-4 ">Cancel</a>
 
 <?php endif; ?>
 <?php if (isset($error)) : ?>

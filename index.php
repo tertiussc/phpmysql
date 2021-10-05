@@ -8,9 +8,9 @@ $conn = require './includes/db.php';
 
 // Get the page value
 $postsPerPage = 4;
-$paginator = new Paginator($_GET['page'] ?? 1, $postsPerPage, Article::getTotal($conn));
+$paginator = new Paginator($_GET['page'] ?? 1, $postsPerPage, Article::getTotal($conn, true));
 
-$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset, true);
 
 $thisPage = 'Home';
 $currentPage = $_GET['page'] ?? 1;

@@ -69,12 +69,16 @@ class Article
      * 
      * @return array An associative array articles per page
      */
-    public static function getPage($conn, $limit, $offset)
+    public static function getPage($conn, $limit, $offset, $only_published = false)
     {
+        // Create a condition clause to be included in the sql statement (for published only)
+        $condition = $only_published ? ' WHERE published_at IS NOT NULL' : '';
+
         // create the SQL 
         $sql = "SELECT a.*, category.name AS category_name
                 FROM (SELECT * 
                 FROM article
+                $condition
                 ORDER BY id
                 LIMIT :limit
                 OFFSET :offset) as a
@@ -82,6 +86,7 @@ class Article
                 ON a.id = article_category.article_id
                 LEFT JOIN category
                 ON article_category.category_id = category.id";
+
 
         // prepare statement
         $stmt = $conn->prepare($sql);
@@ -114,7 +119,6 @@ class Article
             $articles[$article_id]['category_names'][] = $row['category_name'];
 
             $previous_id = $article_id;
-
         }
 
         return $articles;
@@ -157,7 +161,7 @@ class Article
      * 
      * @return array The article data with categories
      */
-    public static function getArticleWithCategories($conn, $id)
+    public static function getArticleWithCategories($conn, $id, $only_published = false)
     {
         // create many to many SQL statement 
         $sql = "SELECT article.*, category.name AS category_name
@@ -167,6 +171,10 @@ class Article
         LEFT JOIN category
         ON article_category.category_id = category.id
         WHERE article.id = :id";
+
+        if ($only_published) {
+            $sql .= ' AND article.published_at IS NOT NULL';
+        }
 
         // Prepare the statement
         $stmt = $conn->prepare($sql);
@@ -350,7 +358,7 @@ class Article
 
         // bind the data for each category in an array
         foreach ($category_ids as $i => $category_id) {
-            $stmt->bindValue($i + 1, $category_id, PDO::PARAM_INT );
+            $stmt->bindValue($i + 1, $category_id, PDO::PARAM_INT);
         }
 
         // execute the statement
@@ -399,9 +407,11 @@ class Article
      * 
      * @return integer The total number of records
      */
-    public static function getTotal($conn)
+    public static function getTotal($conn, $only_published = false)
     {
-        return $conn->query('SELECT COUNT(*) FROM article')->fetchColumn();
+        $condition = $only_published ? ' WHERE published_at IS NOT NULL' : '';
+
+        return $conn->query("SELECT COUNT(*) FROM article$condition")->fetchColumn();
     }
 
     /**

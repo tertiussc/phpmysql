@@ -19,7 +19,7 @@ $basePath = strtok($_SERVER["REQUEST_URI"], '?');
         <?php endif; ?>
 
         <!-- Page link in between -->
-        <?php for ($i = 0; $i < (Article::getTotal($conn) / $paginator->limit); $i++) : ?>
+        <?php for ($i = 0; $i < (Article::getTotal($conn, true) / $paginator->limit); $i++) : ?>
             <li class="page-item <?= ($currentPage == ($i + 1)) ? 'active' : ''; ?>"><a class="page-link" href="?page=<?= $i + 1 ?>"><?php echo $i + 1; ?></a></li>
         <?php endfor; ?>
 

@@ -9,7 +9,7 @@
 
 
 <!-- The form -->
-<form class="border rounded bg-white py-5 px-3 custom-form-shaddow" method="post" action="">
+<form class="border rounded bg-white py-5 px-3 custom-form-shaddow" method="post" id="formArticle">
     <div class="mb-2">
         <label class="form-label visually-hidden" for="title">Title</label>
         <input class="form-control" type="text" name="title" id="name" placeholder="Title" value="<?= htmlspecialchars($article->title) ?>">

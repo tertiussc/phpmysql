@@ -44,7 +44,7 @@ if (isset($_GET['id'])) {
             <div class="mb-1 row">
                 <a href="edit_article.php?id=<?php echo $article[0]['id']; ?>" class="btn btn-sm btn-primary col-3 me-1">Edit</a>
                 <a href="edit_article_image.php?id=<?php echo $article[0]['id']; ?>" class="btn btn-sm btn-warning col-3 me-1">Edit Image</a>
-                <a href="delete_article.php?id=<?php echo $article[0]['id']; ?>" class="btn btn-sm btn-danger col-3">Delete</a>
+                <a href="delete_article.php?id=<?php echo $article[0]['id']; ?>" class="btn btn-sm btn-danger col-3 delete-article-btn">Delete</a>
             <?php else : ?>
                 <p class="callout-danger">You must be logged in to Edit or Delete. <a href="login.php">Login</a></p>
             <?php endif ?>
