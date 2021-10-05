@@ -4,31 +4,49 @@ $(".delete-article-btn").on("click", function (e) {
     // Are you sure confirmation popup
     if (confirm("Are you sure?")) {
         var frm = $("<form>");
-        frm.attr('method', 'post');
-        frm.attr('action', $(this).attr('href'));
+        frm.attr("method", "post");
+        frm.attr("action", $(this).attr("href"));
         frm.appendTo("body");
         frm.submit();
     }
 });
 
 // create a new custom validation rule
-$.validator.addMethod("dateTime", function(value, element){
-    return (value == "") || ! isNaN(Date.parse(value));
-
-}, "Must be a valid date and time")
+$.validator.addMethod(
+    "dateTime",
+    function (value, element) {
+        return value == "" || !isNaN(Date.parse(value));
+    },
+    "Must be a valid date and time"
+);
 
 // Validate the form using the JQuery Validate plugin
-$('#formArticle').validate({
+$("#formArticle").validate({
     // Set the fields to be validated
     rules: {
         title: {
-            required: true
+            required: true,
         },
         content: {
-            required: true
+            required: true,
         },
         published_at: {
-            dateTime: true
-        }
-    }
-})
+            dateTime: true,
+        },
+    },
+});
+
+// Publish articles
+$("button.publish-now").on("click", function (e) {
+    // Assign the data- (in this case "data-id" attribute value) received from the button element
+    var id = $(this).data("id");
+    var button = $(this);
+
+    $.ajax({
+        url: "/phpmysql/admin/publish_article.php",
+        type: "POST",
+        data: { id: id },
+    }).done(function (data) {
+        button.parent().html(data);
+    });
+});
