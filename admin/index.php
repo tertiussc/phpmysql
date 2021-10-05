@@ -52,6 +52,7 @@ $currentPage = $_GET['page'] ?? 1;
         </tbody>
     </table>
     <!-- Pagination -->
+    <!-- Need to fix pagination include to set $only_published = false -->
     <?php require '../includes/pagination.php'; ?>
 </main>
 <?php require '../includes/footer.php'; ?>
