@@ -26,7 +26,7 @@ $currentPage = $_GET['page'] ?? 1;
         <?php foreach ($articles as $article) : ?>
             <li>
                 <article>
-                    <h2><a class="text-decoration-none" href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article["title"]); ?>
+                    <h2 class="mb-0"><a class="text-decoration-none" href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article["title"]); ?>
 
                             <!-- Add category names from the array -->
                             <?php if ($article['category_names']) : ?>
@@ -37,7 +37,11 @@ $currentPage = $_GET['page'] ?? 1;
                                 </small>
                             <?php endif; ?>
                         </a></h2>
-                    <p><?php echo htmlspecialchars($article["content"]); ?></p>
+                        <time class="small text-secondary" datetime="<?= $article['published_at'];?>"><?php
+                            $datetime = new DateTime($article['published_at']);
+                            echo $datetime->format("j F, Y")
+                        ?></time>
+                    <p class="my-2"><?php echo htmlspecialchars($article["content"]); ?></p>
                 </article>
             </li>
         <?php endforeach ?>
