@@ -10,8 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/640160ffb6.js" crossorigin="anonymous"></script>
+    <!-- XDSoft date and time picker -->
+    <link rel="stylesheet" href="/phpmysql/css/jquery.datetimepicker.min.css">
     <!-- custom styles -->
-    <link rel="stylesheet" href="/phpmysql/main.css">
+    <link rel="stylesheet" href="/phpmysql/css/main.css">
 
     <title>PHP CMS</title>
 </head>

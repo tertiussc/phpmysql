@@ -21,7 +21,7 @@
     </div>
     <div class="mb-2 col-md-4">
         <label class="form-label" for="published_at">Publication data and time</label>
-        <input class="form-control" type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?>" placeholder="YYYY-MM-DD HH:MM:SS">
+        <input class="form-control" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?> " autocomplete="off" placeholder="YYYY-MM-DD HH:MM:SS">
     </div>
 
     <fieldset class="border rounded px-3 mb-2">

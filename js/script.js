@@ -21,19 +21,24 @@ $.validator.addMethod(
 );
 
 // Validate the form using the JQuery Validate plugin
-$("#formArticle").validate({
-    // Set the fields to be validated
-    rules: {
-        title: {
-            required: true,
-        },
-        content: {
-            required: true,
-        },
-        published_at: {
-            dateTime: true,
-        },
-    },
+// $("#formArticle").validate({
+//     // Set the fields to be validated
+//     rules: {
+//         title: {
+//             required: true,
+//         },
+//         content: {
+//             required: true,
+//         },
+//         published_at: {
+//             dateTime: true,
+//         },
+//     },
+// });
+
+// Implement the date and time picker
+$("#published_at").datetimepicker({
+    format: 'Y-m-d H:i:s'
 });
 
 // Publish articles

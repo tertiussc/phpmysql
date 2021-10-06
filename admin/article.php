@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
         <li>
             <article>
                 <h4 class="text-primary">Title: <?php echo htmlspecialchars($article[0]['title']); ?></h4>
-                <p class="small text-secondary"><?= ($article[0]['published_at']) ? $article['published_at'] : 'Unpublished' ?></p>
+                <p class="small text-secondary"><?= ($article[0]['published_at']) ? $article[0]['published_at'] : 'Unpublished' ?></p>
                 <?php if ($article[0]['category_name']) : ?>
                     <p>Categories:
                         <?php foreach ($article as $a) : ?>
