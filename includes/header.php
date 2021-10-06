@@ -49,6 +49,9 @@
                                         <a class="nav-link" href="/phpmysql/login.php">Log In</a>
                                     </li>
                                 <?php endif ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= ($thisPage == 'Contact') ? 'active' : ''; ?>" aria-current="page" href="/phpmysql/contact.php">Contact</a>
+                                </li>
                                 <!-- Login Conditional link end -->
                             </ul>
                         </div>

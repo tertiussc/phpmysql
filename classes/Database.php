@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Database
  * 
@@ -7,30 +8,65 @@
 class Database
 {
     /**
+     * Hostname
+     * @var string
+     */
+    protected $db_host;
+
+    /**
+     * Database name
+     * @var string
+     */
+    protected $db_name;
+
+    /**
+     * Username
+     * @var string
+     */
+    protected $db_user;
+
+    /**
+     * Password
+     * @var string
+     */
+    protected $db_pass;
+
+    /**
+     * Constructor
+     * 
+     * @param string $host Hostname
+     * @param string $name Database name
+     * @param string $user Username
+     * @param string $pass Password
+     * 
+     * @return void
+     */
+    public function __construct($host, $name, $user, $pass)
+    {
+        $this->db_host = $host;
+        $this->db_name = $name;
+        $this->db_user = $user;
+        $this->db_pass = $pass;
+    }
+
+    /**
      * Database connection method
      * 
      * @return PDO object Connection to the database server
      */
     public function getConnection()
     {
-        // Connection details
-        $db_host = "localhost";
-        $db_name = "php_cms";
-        $db_user = "cms_admin";
-        $db_pass = "FG.RaLDMgtf1iEc_";
-
-        $dsn =  'mysql:host=' . $db_host .
-            ';dbname=' . $db_name .
+        $dsn =  'mysql:host=' . $this->db_host .
+            ';dbname=' . $this->db_name .
             ';charset-utf8';
 
-            try {
-            $db = new PDO($dsn, $db_user, $db_pass);
+        try {
+            $db = new PDO($dsn, $this->db_user, $this->db_pass);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $db;
-
-            } catch(PDOException $e) {
-                echo $e->getMessage();
-                exit;
-            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
     }
 }

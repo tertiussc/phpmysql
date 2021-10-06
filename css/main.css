@@ -10,11 +10,18 @@
     background-color: white;
     padding: 7px 0px 7px 3px;
 }
-.callout-danger {
+.callout-danger,  label.error {
     border-left: solid 3px #dc3545;
     border-radius: 2px;
     background-color: white;
     padding: 7px 0px 7px 3px;
+}
+label.error {
+    border-left: solid 3px #dc3545;
+    border-radius: 2px;
+    background-color: white;
+    padding: 7px 0px 7px 3px;
+    margin-top: .5em;
 }
 
 .img-height {

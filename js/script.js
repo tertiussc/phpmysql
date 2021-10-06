@@ -36,6 +36,22 @@ $.validator.addMethod(
 //     },
 // });
 
+// contact form validation
+$('#contactForm').validate({
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        subject: {
+            required: true
+        },
+        message: {
+            required: true
+        },
+    }
+})
+
 // Implement the date and time picker
 $("#published_at").datetimepicker({
     format: 'Y-m-d H:i:s'
