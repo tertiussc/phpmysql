@@ -10,4 +10,5 @@ define('SMTP_HOST', 'mail.example.com');
 define('SMTP_USER', 'user@example.com');
 define('SMTP_PASS', 'secret');
 
+// Switch error detail display ON for Dev and OFF for Prod
 define('SHOW_ERROR_DETAIL', true);

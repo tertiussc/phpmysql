@@ -69,5 +69,7 @@ $("button.publish-now").on("click", function (e) {
         data: { id: id },
     }).done(function (data) {
         button.parent().html(data);
+    }).fail(function(data) {
+        alert("An error occurred");
     });
 });

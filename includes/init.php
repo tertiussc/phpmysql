@@ -19,6 +19,10 @@ require dirname(__DIR__) . '/config.php';
 // Handle errors and exceptions 
 function errorHandler($level, $message, $file, $line)
 {
+
+    // Ajex server error
+    http_response_code(500);
+
     // convert error to exceptions
     throw new ErrorException($message, 0, $level, $file, $line);
 }
