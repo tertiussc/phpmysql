@@ -1,0 +1,5 @@
+# Ways to protect web folders option 1 just hides all files on the folder but the folder can still be accessed
+# IndexIgnore *
+
+# 2nd way to protect the folder
+Options -Indexes

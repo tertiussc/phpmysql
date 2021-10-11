@@ -9,3 +9,5 @@ define('DB_PASSWORD', 'FG.RaLDMgtf1iEc_');
 define('SMTP_HOST', 'mail.example.com');
 define('SMTP_USER', 'user@example.com');
 define('SMTP_PASS', 'secret');
+
+define('SHOW_ERROR_DETAIL', true);

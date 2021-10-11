@@ -5,6 +5,27 @@ echo "<h4>Temporary PHP Block</h4>";
  * PHP Code here
  */
 
+$errors = [];
+
+//  Catch errors
+function errorHandler($level, $message, $file, $line)
+{
+    // convert error to exception so that all errors can be caught in the exception handles
+    throw new ErrorException($message, 0, $level, $file, $line);
+}
+set_error_handler('errorHandler');
+
+function exceptionHandler($exception)
+{
+    echo 'Exception error: ', $exception->getMessage();
+}
+set_exception_handler('exceptionHandler');
+
+
+// $datetime = new DateTime('invalid');
+$i = 1 / 0;
+
+var_dump($errors);
 
 echo "<hr>";
 echo "</div>";
@@ -27,21 +48,12 @@ echo "</div>";
         <h1 class="display-5 text-center">Playground for <span class="text-muted fw-normal">PHP & MySQL</span></h1>
         <hr>
         <!--=== Playground Start ===-->
-        <h1>Ajax examples</h1>
-        <p class="lead">The time is <time id="time"><?= date('h:i:s') ?></time></p>
-        <button class="btn btn-primary" id="btn">Refresh</button>
-        <hr>
-        <dl>
-            <dt>Name</dt>
-            <dd id="name"></dd>
 
-            <dt>Email</dt>
-            <dd id="email"></dd>
+        <?php foreach ($errors as $error) : ?>
+            <p><?= $error ?></p>
+        <?php endforeach; ?>
 
-            <dt>Date of birth</dt>
-            <dd id="dob"></dd>
-        </dl>
-        <button class="btn btn-primary" id="btn2">Request</button>
+
     </div>
 
     <!-- JQuery -->
